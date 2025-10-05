@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: email-deployment
+spec:
+  selector:
+    matchLabels:
+      app: emailsvc
+  template:
+    metadata:
+      labels:
+        app: emailsvc
+    spec:
+      containers:
+      - name: emailsvc
+        image: danielszr/go-email
+        envFrom:
+          - configMapRef:
+              name: platform-config
+          - secretRef:
+              name: platform-secret
+        ports:
+        - containerPort: 8000
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: email-service
+spec:
+  selector: 
+    app: emailsvc
+  type: NodePort
+  ports: 
+    - name: emailsvc-port
+      port: 8000
+      protocol: TCP
