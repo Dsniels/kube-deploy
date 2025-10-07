@@ -1,0 +1,17 @@
+# @format
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: platform-config
+data:
+    RABBIT_CONN: "amqp://guest:guest@rabbitmq-service:5672"
+    PORT_STORE: "8080"
+    GRPC_URL: platformsvc-service:5172
+    ASPNETCORE_URLS: http://+:5171;https://+:443
+    Token__Issuer: http://localhost:5023
+    ConnectionStrings__RabbitConnection: amqp://guest:guest@rabbitmq-service:5672
+    EMAIL_API: http://email-service:8000
+    MAIN_API: http://platformsvc-service:5171
+    STORE_API: http://store-service:8080
+    PROXI_API: ":80"
